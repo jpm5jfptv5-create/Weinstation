@@ -33,7 +33,7 @@
       border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       text-align: center;
       border: 1px solid var(--border-color);
     }
@@ -70,7 +70,7 @@
       letter-spacing: 0.5px;
     }
 
-    input, textarea {
+    input, textarea, select {
       width: 100%;
       padding: 12px;
       border-radius: 6px;
@@ -84,8 +84,21 @@
       transition: border-color 0.3s;
     }
 
-    input:focus, textarea:focus {
+    select option {
+      background-color: #1c2230;
+      color: var(--text);
+    }
+
+    input:focus, textarea:focus, select:focus {
       border-color: var(--accent);
+    }
+
+    .mode-group {
+      display: none;
+    }
+
+    .mode-group.active {
+      display: block;
     }
 
     button {
@@ -132,11 +145,70 @@
     <p>Formelle Übermittlung einer Willenserklärung an die Weinstation</p>
 
     <form id="msgForm">
+      <!-- ABSENDER -->
       <label for="sender">§ 1 Absender / Erklärender:</label>
       <input type="text" id="sender" placeholder="z. B. Parteigänger Anna" required maxlength="15">
 
-      <label for="message">§ 2 Gegenstand der Erklärung:</label>
-      <textarea id="message" rows="3" placeholder="Gegenstand der schriftlichen Rüge oder Botschaft..." required maxlength="60"></textarea>
+      <!-- KATEGORIE / MODUS WÄHLEN -->
+      <label for="category">§ 2 Verfahrungsart / Modus:</label>
+      <select id="category" onchange="switchMode(this.value)">
+        <option value="TEXT">Freie Botschaft / Rüge</option>
+        <option value="URTEIL">Gerichtliches Urteil / Beschluss</option>
+        <option value="STATUS">Status & Gefühlsbarometer</option>
+        <option value="COUNTDOWN">Ereignis / Countdown</option>
+        <option value="QUIZ">Rätsel / Quiz-Frage</option>
+        <option value="WINE">Wein-Tasting / Empfehlung</option>
+      </select>
+
+      <!-- MODUS 1: FREIER TEXT -->
+      <div id="mode-TEXT" class="mode-group active">
+        <label for="msgText">§ 3 Gegenstand der Erklärung:</label>
+        <textarea id="msgText" rows="3" placeholder="Gegenstand der schriftlichen Rüge oder Botschaft..." maxlength="60"></textarea>
+      </div>
+
+      <!-- MODUS 2: URTEIL / BESCHLUSS -->
+      <div id="mode-URTEIL" class="mode-group">
+        <label for="verdictSelect">§ 3 Gerichtlicher Tenor:</label>
+        <select id="verdictSelect">
+          <option value="Der Beklagte wird verurteilt, unverzüglich Wein nachzuschenken.">Der Beklagte wird verurteilt, unverzüglich Wein nachzuschenken.</option>
+          <option value="Einstweilige Verfügung: Sofortiger Stopp von Hausarbeiten!">Einstweilige Verfügung: Sofortiger Stopp von Hausarbeiten!</option>
+          <option value="Beweisbeschluss: Die Qualität erfordert ein zweites Glas.">Beweisbeschluss: Die Qualität erfordert ein zweites Glas.</option>
+          <option value="Urteil: Feierabend mit sofortiger Wirkung rechtskräftig.">Urteil: Feierabend mit sofortiger Wirkung rechtskräftig.</option>
+        </select>
+      </div>
+
+      <!-- MODUS 3: STATUS / GEFÜHLSBAROMETER -->
+      <div id="mode-STATUS" class="mode-group">
+        <label for="statusSelect">§ 3 Aktueller Status:</label>
+        <select id="statusSelect">
+          <option value="🍷 Feierabend-Modus aktiv">🍷 Feierabend-Modus aktiv</option>
+          <option value="🔋 Akku leer – bitte Wein/Kaffee einschenken">🔋 Akku leer – bitte Wein/Kaffee einschenken</option>
+          <option value="🤫 Ruhe vor dem Gericht: Bitte nicht stören">🤫 Ruhe vor dem Gericht: Bitte nicht stören</option>
+          <option value="🎉 Das Wochenende ist offiziell eingeläutet!">🎉 Das Wochenende ist offiziell eingeläutet!</option>
+        </select>
+      </div>
+
+      <!-- MODUS 4: COUNTDOWN / EREIGNIS -->
+      <div id="mode-COUNTDOWN" class="mode-group">
+        <label for="cdText">§ 3 Ereignisbezeichnung:</label>
+        <input type="text" id="cdText" placeholder="z. B. Pizza da / Ankunft" maxlength="30">
+        <label for="cdMinutes">§ 3a Verbleibende Minuten:</label>
+        <input type="number" id="cdMinutes" placeholder="z. B. 15" min="1" max="180">
+      </div>
+
+      <!-- MODUS 5: QUIZ / RÄTSEL -->
+      <div id="mode-QUIZ" class="mode-group">
+        <label for="quizQuestion">§ 3 Quiz-Frage:</label>
+        <input type="text" id="quizQuestion" placeholder="z. B. Wer hat heute den Abwasch gemacht?" maxlength="50">
+      </div>
+
+      <!-- MODUS 6: WEIN-TASTING -->
+      <div id="mode-WINE" class="mode-group">
+        <label for="wineName">§ 3 Weinbezeichnung / Jahrgang:</label>
+        <input type="text" id="wineName" placeholder="z. B. Pinot Noir 2021" maxlength="30">
+        <label for="winePairing">§ 3a Passt ideal zu:</label>
+        <input type="text" id="winePairing" placeholder="z. B. Käse & Pasta 🧀" maxlength="30">
+      </div>
 
       <button type="submit" id="submitBtn">Formgerecht zustellen ⚖️</button>
     </form>
@@ -152,20 +224,66 @@
     // GOOGLE APPS SCRIPT URL:
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgNUeYMpiBC9WNMyTA6n8P_30bwthCmVa8TVtlwa9KbcSeCd82UCfzhW3nLCnNn7a1/exec";
 
+    function switchMode(selectedCategory) {
+      // Alle Modus-Gruppen ausblenden
+      const groups = document.querySelectorAll('.mode-group');
+      groups.forEach(g => g.classList.remove('active'));
+
+      // Ausgewählten Modus einblenden
+      const activeGroup = document.getElementById('mode-' + selectedCategory);
+      if (activeGroup) {
+        activeGroup.classList.add('active');
+      }
+    }
+
     document.getElementById("msgForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
       const btn = document.getElementById("submitBtn");
       const status = document.getElementById("status");
       const sender = document.getElementById("sender").value;
-      const message = document.getElementById("message").value;
+      const category = document.getElementById("category").value;
+
+      let finalMessage = "";
+
+      // Nachricht je nach gewähltem Modus zusammensetzen
+      switch (category) {
+        case "TEXT":
+          finalMessage = document.getElementById("msgText").value;
+          break;
+        case "URTEIL":
+          finalMessage = document.getElementById("verdictSelect").value;
+          break;
+        case "STATUS":
+          finalMessage = document.getElementById("statusSelect").value;
+          break;
+        case "COUNTDOWN":
+          const eventName = document.getElementById("cdText").value || "Ereignis";
+          const mins = document.getElementById("cdMinutes").value || "0";
+          finalMessage = `⏱️ ${eventName} in ${mins} Min!`;
+          break;
+        case "QUIZ":
+          finalMessage = `❓ Quiz: ${document.getElementById("quizQuestion").value}`;
+          break;
+        case "WINE":
+          const wName = document.getElementById("wineName").value || "Wein";
+          const wPair = document.getElementById("winePairing").value || "Gute Laune";
+          finalMessage = `🍷 ${wName} | Passt zu: ${wPair}`;
+          break;
+      }
+
+      if (!finalMessage.trim()) {
+        status.style.color = "#e63956";
+        status.innerText = "Bitte fülle die Inhaltsfelder aus!";
+        return;
+      }
 
       btn.disabled = true;
       btn.innerText = "Zustellung läuft...";
       status.style.color = "#9aa5b8";
       status.innerText = "Prüfe Zustellungsfähigkeit...";
 
-      // Daten an Google Apps Script senden
+      // Daten an Google Apps Script senden (inkl. Kategorie & formatierter Nachricht)
       fetch(SCRIPT_URL, {
         method: "POST",
         mode: "no-cors", // Verhindert CORS-Blockaden von Google Script
@@ -174,13 +292,13 @@
         },
         body: new URLSearchParams({
           "sender": sender,
-          "message": message
+          "category": category,
+          "message": finalMessage
         })
       })
       .then(() => {
         status.style.color = "#4ECA78";
         status.innerText = "✓ Ordnungsgemäß auf dem Display zugestellt!";
-        document.getElementById("message").value = "";
         btn.disabled = false;
         btn.innerText = "Formgerecht zustellen ⚖️";
       })
