@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wein-Botschaft senden 🍷</title>
+  <style>
+    :root {
+      --bg-color: #1a0915;
+      --card-bg: #2d1225;
+      --accent: #e63956;
+      --text: #f8f9fa;
+      --subtext: #b3a2b0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      border: 1px solid rgba(230, 57, 86, 0.2);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      color: var(--accent);
+    }
+
+    p {
+      color: var(--subtext);
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-size: 0.85rem;
+      color: var(--subtext);
+      margin-bottom: 6px;
+      margin-top: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #4a213f;
+      background-color: #1a0915;
+      color: var(--text);
+      font-size: 1rem;
+      box-sizing: border-box;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #e63956, #911a37);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(230, 57, 86, 0.4);
+      transition: transform 0.1s;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>🍷 Smarte Wein-Botschaft</h1>
+    <p>Schicke eine Nachricht direkt auf das Display der Weinstation!</p>
+
+    <form id="msgForm">
+      <label for="sender">Dein Name:</label>
+      <input type="text" id="sender" placeholder="z. B. Anna" required maxlength="15">
+
+      <label for="message">Deine Nachricht:</label>
+      <textarea id="message" rows="3" placeholder="Schreibe etwas Schönes..." required maxlength="60"></textarea>
+
+      <button type="submit" id="submitBtn">Botschaft senden ✨</button>
+    </form>
+
+    <div id="status"></div>
+  </div>
+
+  <script>
+    // FÜGE HIER DEINE GOOGLE APPS SCRIPT URL EIN:
+    const SCRIPT_URL = "https://script.google.com/macros/s/DEIN_DEPLOYMENT_ID/exec";
+
+    document.getElementById("msgForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      const btn = document.getElementById("submitBtn");
+      const status = document.getElementById("status");
+      const sender = document.getElementById("sender").value;
+      const message = document.getElementById("message").value;
+
+      btn.disabled = true;
+      btn.innerText = "Sende...";
+      status.style.color = "#b3a2b0";
+      status.innerText = "Verbindung wird hergestellt...";
+
+      // Daten an Google Apps Script senden
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // Verhindert CORS-Blockaden von Google Script
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          "sender": sender,
+          "message": message
+        })
+      })
+      .then(() => {
+        status.style.color = "#4ECA78";
+        status.innerText = "✓ Erfolgreich auf das Display gesendet!";
+        document.getElementById("message").value = "";
+        btn.disabled = false;
+        btn.innerText = "Botschaft senden ✨";
+      })
+      .catch(err => {
+        status.style.color = "#e63956";
+        status.innerText = "Fehler beim Senden. Bitte erneut versuchen.";
+        btn.disabled = false;
+        btn.innerText = "Botschaft senden ✨";
+      });
+    });
+  </script>
+</body>
+</html>
