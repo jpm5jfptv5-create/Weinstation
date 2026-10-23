@@ -3,101 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amtliche Übermittlung | Weinstation ⚖️🍷</title>
+  <title>Weinstation — Übermittlung</title>
   <style>
     :root {
-      --bg-color: #0b0d12;
-      --card-bg: rgba(26, 32, 48, 0.85);
-      --accent: #e5c158;
-      --accent-glow: rgba(229, 193, 88, 0.35);
-      --text: #f8f9fa;
-      --subtext: #a0aec0;
-      --border-color: rgba(229, 193, 88, 0.3);
-      --oracle-purple: #9b51e0;
+      --bg-color: #000000;
+      --card-bg: rgba(28, 28, 30, 0.75);
+      --accent-blue: #2997ff;
+      --accent-purple: #af52de;
+      --accent-red: #ff453a;
+      --text-primary: #f5f5f7;
+      --text-secondary: #86868b;
+      --input-bg: rgba(118, 118, 128, 0.18);
+      --border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
-      font-family: "Georgia", "Times New Roman", serif;
-      background: radial-gradient(circle at top, #1a2333 0%, #0b0d12 100%);
-      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       margin: 0;
-      padding: 20px;
-      box-sizing: border-box;
+      padding: 24px;
     }
 
-    .card {
+    .container {
       background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 30px 25px;
-      border-radius: 16px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 20px var(--accent-glow);
-      width: 100%;
-      max-width: 440px;
-      text-align: center;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
       border: 1px solid var(--border-color);
+      border-radius: 22px;
+      padding: 36px 28px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      text-align: center;
     }
 
-    .header-icon {
-      font-size: 2.5rem;
-      margin-bottom: 5px;
-      filter: drop-shadow(0 0 8px var(--accent));
-      animation: pulse 2.5s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
+    .apple-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      margin-bottom: 8px;
     }
 
     h1 {
-      margin-top: 0;
-      font-size: 1.35rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin: 0 0 6px 0;
+      color: var(--text-primary);
     }
 
-    p {
-      color: var(--subtext);
-      font-size: 0.85rem;
-      margin-bottom: 20px;
-      font-style: italic;
+    .subtitle {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-weight: 400;
+      line-height: 1.35;
     }
 
     label {
       display: block;
       text-align: left;
       font-size: 0.78rem;
-      color: var(--accent);
+      font-weight: 600;
+      color: var(--text-secondary);
       margin-bottom: 6px;
-      margin-top: 15px;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
+      margin-top: 18px;
+      letter-spacing: -0.005em;
     }
 
-    input, textarea, select {
+    input, select, textarea {
       width: 100%;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 13px 14px;
+      border-radius: 12px;
       border: 1px solid var(--border-color);
-      background-color: rgba(11, 13, 18, 0.8);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 0.95rem;
-      box-sizing: border-box;
+      background-color: var(--input-bg);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.92rem;
       outline: none;
-      transition: border-color 0.3s;
+      transition: all 0.2s ease;
+      -webkit-appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%86868b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
     }
 
     select option {
-      background-color: #1a2030;
-      color: var(--text);
+      background-color: #1c1c1e;
+      color: var(--text-primary);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.25);
     }
 
     .mode-group {
@@ -108,40 +124,42 @@
       display: block;
     }
 
-    /* ORAKEL STYLES */
-    .oracle-box {
-      background: rgba(155, 81, 224, 0.1);
-      border: 1px dashed var(--oracle-purple);
-      border-radius: 12px;
-      padding: 20px 15px;
+    /* APPLE CARDS / FEATURE BOXES */
+    .feature-card {
+      border-radius: 14px;
+      padding: 18px 16px;
       margin-top: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       text-align: center;
     }
 
-    .oracle-title {
-      color: #d6a4ff;
-      font-weight: bold;
+    .oracle-card {
+      border-color: rgba(175, 82, 222, 0.3);
+      background: rgba(175, 82, 222, 0.06);
+    }
+
+    .case-card {
+      border-color: rgba(255, 69, 58, 0.3);
+      background: rgba(255, 69, 58, 0.06);
+    }
+
+    .feature-title {
+      font-weight: 600;
       font-size: 0.95rem;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    .oracle-desc {
+    .feature-desc {
       font-size: 0.8rem;
-      color: #bfa3e6;
-      margin-bottom: 15px;
-      font-style: italic;
-    }
-
-    .oracle-btn {
-      background: linear-gradient(135deg, #8a2be2, #4a00e0) !important;
-      color: #fff !important;
-      box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4) !important;
+      color: var(--text-secondary);
+      line-height: 1.4;
     }
 
     .spinning-wheel {
       display: none;
-      font-size: 2rem;
-      margin: 10px 0;
+      font-size: 1.8rem;
+      margin-top: 10px;
       animation: spin 0.8s linear infinite;
     }
 
@@ -150,107 +168,141 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* LIVE PREVIEW */
-    .oled-preview {
-      margin-top: 20px;
+    /* APPLE HARDWARE OLED PREVIEW */
+    .oled-hardware-container {
+      margin-top: 24px;
       background: #000;
-      border: 2px solid #333;
-      border-radius: 8px;
-      padding: 12px;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 14px;
       text-align: left;
-      font-family: "Courier New", Courier, monospace;
-      color: #00ffcc;
-      box-shadow: inset 0 0 10px rgba(0,255,204,0.2);
+      position: relative;
     }
 
     .oled-header {
-      font-size: 0.65rem;
-      color: #555;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--text-secondary);
       text-transform: uppercase;
-      border-bottom: 1px solid #222;
-      padding-bottom: 4px;
-      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid #1c1c1e;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .oled-text {
+      font-family: "SF Mono", "Courier New", monospace;
       font-size: 0.85rem;
+      color: #34c759;
+      min-height: 36px;
       word-break: break-word;
-      min-height: 38px;
+      line-height: 1.3;
     }
 
-    button[type="submit"] {
-      margin-top: 25px;
+    /* APPLE PILL BUTTONS */
+    .btn-submit {
+      margin-top: 24px;
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #e5c158, #b89228);
-      color: #0b0d12;
+      background-color: var(--accent-blue);
+      color: #ffffff;
       border: none;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      border-radius: 980px; /* Classic Apple Pill Button */
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       cursor: pointer;
-      box-shadow: 0 4px 15px var(--accent-glow);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      opacity: 0.9;
+      transform: scale(1.005);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.98);
+    }
+
+    .btn-oracle {
+      background-color: var(--accent-purple) !important;
+    }
+
+    .btn-case {
+      background-color: var(--accent-red) !important;
     }
 
     #status {
-      margin-top: 15px;
-      font-size: 0.85rem;
+      margin-top: 16px;
+      font-size: 0.82rem;
       min-height: 20px;
-      font-weight: bold;
+      font-weight: 500;
     }
 
-    .legal-notice {
-      margin-top: 20px;
+    .footer-legal {
+      margin-top: 24px;
       font-size: 0.7rem;
-      color: #526078;
+      color: var(--text-secondary);
       border-top: 1px solid var(--border-color);
-      padding-top: 12px;
+      padding-top: 14px;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <div class="header-icon">⚖️ 🍷</div>
-    <h1>Zustellungsanzeige</h1>
-    <p>Formelle Übermittlung an die Weinstation</p>
+  <div class="container">
+    <div class="apple-badge">Weinstation Display OS</div>
+    <h1>Nachricht senden</h1>
+    <div class="subtitle">Übermittle eine Botschaft oder Anweisung direkt an das OLED-Display.</div>
 
     <form id="msgForm">
       <!-- ABSENDER -->
-      <label for="sender">§ 1 Absender / Erklärender:</label>
-      <input type="text" id="sender" placeholder="z. B. Parteigänger Anna" required maxlength="15" oninput="updatePreview()">
+      <label for="sender">Absender</label>
+      <input type="text" id="sender" placeholder="z. B. Anna" required maxlength="15" oninput="updatePreview()">
 
-      <!-- MODUS WÄHLEN -->
-      <label for="category">§ 2 Verfahrungsart / Modus:</label>
+      <!-- MODUS SELEKTION -->
+      <label for="category">Modus auswählen</label>
       <select id="category" onchange="switchMode(this.value)">
-        <option value="TEXT">Freie Botschaft / Rüge</option>
-        <option value="ORACLE">🔮 Examens-Orakel (Top Secret Facts)</option>
-        <option value="URTEIL">Gerichtliches Urteil / Beschluss</option>
-        <option value="STATUS">Status & Gefühlsbarometer</option>
-        <option value="COUNTDOWN">Ereignis / Countdown</option>
-        <option value="WINE">Wein-Tasting / Empfehlung</option>
+        <option value="TEXT">Freie Nachricht</option>
+        <option value="ORACLE">🔮 Examens-Orakel (Zufalls-Funfacts)</option>
+        <option value="CASE">💀 Makabere Examensfälle (Mini-Story)</option>
+        <option value="URTEIL">Gerichtliches Urteil</option>
+        <option value="STATUS">Status-Update</option>
+        <option value="COUNTDOWN">Countdown</option>
+        <option value="WINE">Wein-Empfehlung</option>
       </select>
 
       <!-- MODUS 1: FREIER TEXT -->
       <div id="mode-TEXT" class="mode-group active">
-        <label for="msgText">§ 3 Gegenstand der Erklärung:</label>
-        <textarea id="msgText" rows="2" placeholder="Gegenstand der schriftlichen Rüge..." maxlength="60" oninput="updatePreview()"></textarea>
+        <label for="msgText">Nachrichtentext</label>
+        <textarea id="msgText" rows="2" placeholder="Deine Nachricht..." maxlength="60" oninput="updatePreview()"></textarea>
       </div>
 
-      <!-- MODUS 2: EXAMENS-ORAKEL (MYSTERIÖS) -->
+      <!-- MODUS 2: EXAMENS-ORAKEL -->
       <div id="mode-ORACLE" class="mode-group">
-        <div class="oracle-box">
-          <div class="oracle-title">🔮 Das Makabre Examens-Orakel</div>
-          <div class="oracle-desc">Ein zufälliger Jura-Funfact wird direkt auf die Weinstation übermittelt. Du erfährst den Text erst auf dem Display!</div>
-          <div class="spinning-wheel" id="wheel">☸️</div>
+        <div class="feature-card oracle-card">
+          <div class="feature-title" style="color: #d783ff;">🔮 Examens-Orakel</div>
+          <div class="feature-desc">Ein makabrer Jura-Funfact wird geheim generiert. Die Auflösung erscheint exklusiv auf dem Display!</div>
+          <div class="spinning-wheel" id="wheel-oracle">☸️</div>
         </div>
       </div>
 
-      <!-- MODUS 3: URTEIL -->
+      <!-- MODUS 3: MAKABERE CASES -->
+      <div id="mode-CASE" class="mode-group">
+        <div class="feature-card case-card">
+          <div class="feature-title" style="color: #ff6961;">💀 Aktenfall-Generator</div>
+          <div class="feature-desc">Ein echter, berüchtigter Klassiker-Fall wird gezogen. Kann direkt auf der Weinstation gelesen werden.</div>
+          <div class="spinning-wheel" id="wheel-case">📜</div>
+        </div>
+      </div>
+
+      <!-- MODUS 4: URTEIL -->
       <div id="mode-URTEIL" class="mode-group">
-        <label for="verdictSelect">§ 3 Gerichtlicher Tenor:</label>
+        <label for="verdictSelect">Tenor auswählen</label>
         <select id="verdictSelect" onchange="updatePreview()">
           <option value="Der Beklagte wird verurteilt, unverzüglich Wein nachzuschenken.">Der Beklagte wird verurteilt, unverzüglich Wein nachzuschenken.</option>
           <option value="Einstweilige Verfügung: Sofortiger Stopp von Hausarbeiten!">Einstweilige Verfügung: Sofortiger Stopp von Hausarbeiten!</option>
@@ -259,153 +311,72 @@
         </select>
       </div>
 
-      <!-- MODUS 4: STATUS -->
+      <!-- MODUS 5: STATUS -->
       <div id="mode-STATUS" class="mode-group">
-        <label for="statusSelect">§ 3 Aktueller Status:</label>
+        <label for="statusSelect">Status auswählen</label>
         <select id="statusSelect" onchange="updatePreview()">
           <option value="🍷 Feierabend-Modus aktiv">🍷 Feierabend-Modus aktiv</option>
           <option value="🔋 Akku leer – bitte Wein/Kaffee einschenken">🔋 Akku leer – bitte Wein/Kaffee einschenken</option>
           <option value="🤫 Ruhe vor dem Gericht: Bitte nicht stören">🤫 Ruhe vor dem Gericht: Bitte nicht stören</option>
-          <option value="🎉 Das Wochenende ist offiziell eingeläutet!">🎉 Das Wochenende ist officially eingeläutet!</option>
+          <option value="🎉 Das Wochenende ist offiziell eingeläutet!">🎉 Das Wochenende ist offiziell eingeläutet!</option>
         </select>
       </div>
 
-      <!-- MODUS 5: COUNTDOWN -->
+      <!-- MODUS 6: COUNTDOWN -->
       <div id="mode-COUNTDOWN" class="mode-group">
-        <label for="cdText">§ 3 Ereignisbezeichnung:</label>
+        <label for="cdText">Ereignis</label>
         <input type="text" id="cdText" placeholder="z. B. Pizza da" maxlength="25" oninput="updatePreview()">
-        <label for="cdMinutes">§ 3a Verbleibende Minuten:</label>
-        <input type="number" id="cdMinutes" placeholder="z. B. 15" min="1" max="180" oninput="updatePreview()">
+        <label for="cdMinutes">Minuten</label>
+        <input type="number" id="cdMinutes" placeholder="15" min="1" max="180" oninput="updatePreview()">
       </div>
 
-      <!-- MODUS 6: WEIN-TASTING -->
+      <!-- MODUS 7: WEIN-TASTING -->
       <div id="mode-WINE" class="mode-group">
-        <label for="wineName">§ 3 Weinbezeichnung / Jahrgang:</label>
-        <input type="text" id="wineName" placeholder="z. B. Pinot Noir 2021" maxlength="25" oninput="updatePreview()">
-        <label for="winePairing">§ 3a Passt ideal zu:</label>
-        <input type="text" id="winePairing" placeholder="z. B. Käse & Pasta 🧀" maxlength="25" oninput="updatePreview()">
+        <label for="wineName">Wein / Jahrgang</label>
+        <input type="text" id="wineName" placeholder="Pinot Noir 2021" maxlength="25" oninput="updatePreview()">
+        <label for="winePairing">Passt zu</label>
+        <input type="text" id="winePairing" placeholder="Käse & Pasta 🧀" maxlength="25" oninput="updatePreview()">
       </div>
 
-      <!-- LIVE OLED PREVIEW BOX -->
-      <div class="oled-preview">
-        <div class="oled-header">📺 OLED Display Live-Vorschau</div>
-        <div class="oled-text" id="oledPreviewText">Geben Sie eine Nachricht ein...</div>
+      <!-- HARDWARE DISPLAY PREVIEW -->
+      <div class="oled-hardware-container">
+        <div class="oled-header">
+          <span>OLED Live-Vorschau</span>
+          <span>0.96″ Display</span>
+        </div>
+        <div class="oled-text" id="oledPreviewText">Warte auf Eingabe...</div>
       </div>
 
-      <button type="submit" id="submitBtn">Formgerecht zustellen ⚖️</button>
+      <button type="submit" id="submitBtn" class="btn-submit">Senden</button>
     </form>
 
     <div id="status"></div>
 
-    <div class="legal-notice">
-      Die Übermittlung erfolgt unverzüglich gemäß § 121 BGB auf das OLED-Display.
+    <div class="footer-legal">
+      Übertragung via Google Script Endpoint auf ESP32-C3 Hardware.
     </div>
   </div>
 
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby0Ig0Ig2vyGpNtl1QXzs6dlk7qMKM8wxUtNq0bT0LxW6qAgy1nSz2NrxnK166q1hcW/exec";
 
-    // 100 MAKABRE & LUSTIGE JURA-FUNFACTS FÜRS STAATSEXAMEN
     const juraFacts = [
       "§ 903 BGB: Tiere sind keine Sachen, werden aber wie Sachen behandelt. RIP Katze.",
       "Der Kätzchenfall: Wer eine Katze aus Versehen erhitzt, haftet zivilrechtlich.",
       "Sirupfall: Wer Gift in den Sirup mischt, begeht fahrlässige Tötung im Schlaf.",
       "Der Rose-Rosahl-Fall: Der Auftragsmörder tötet die falsche Person – unbeachtlicher Error in Persona!",
       "Das Reichsgericht entschied: Auch Bier ist eine Flüssigkeit im Sinne des Gesetzes.",
-      "In Bayern gilt Bier rechtlich traditionell als Grundnahrungsmittel.",
       "Der Sirius-Fall: Wer jemanden überreden will, sich auf 'Sirius' aufzulösen, begeht mittelbare Täterschaft.",
-      "Das BVerfG hat entschieden: Reiten im Walde ist allgemeine Handlungsfreiheit (§ 2 I GG).",
       "Der Haustyrannen-Fall: Heimtücke durch Schlaf-Tötung ist der Examens-Klassiker.",
-      "Edelmannfall: Formmangel beim Grundstückskauf – Treu und Glauben schlägt Gesetz.",
-      "Das Reichsgericht bewertete Stromdiebstahl einst nicht als Diebstahl, weil Strom keine Sache ist.",
-      "Der Papageien-Fall: Wenn der Papagei den Nachbarn beleidigt, haftet der Halter.",
-      "Die Bienen-Vorschriften (§§ 961 ff. BGB): Verfolgt der Eigentümer seinen Schwarm nicht, wird er herrenlos!",
-      "Herrenlose Tiere: Wenn du eine Fliege fängst, gehört sie offiziell dir.",
-      "§ 1300 BGB a.F.: Das Kranzgeld ist seit 1998 abgeschafft. Entjungferung ist billig geworden.",
-      "Der Trierer Weinversteigerungsfall: Wer aus Versehen winkt, winkt einen Weinberg herbei!",
-      "E-Scooter im Schaufenster: Vorsatz schlägt Fahrlässigkeit, außer im Examen.",
-      "Der Göttergatte-Fall: Unterhalt gibt es auch bei chronischer Untreue.",
-      "Der Klopapier-Fall: Hamsterkäufe begründen keine Anfechtung wegen Inhaltsirrtums.",
-      "Der Fleischhacker-Fall: Notwehr ist nicht geboten, wenn der Ausweg unkompliziert ist.",
-      "Jura-Motto: Drei Juristen, vier Meinungen und fünf Niederlagen.",
-      "Subsumtion im Examen: Erst das Obersatz-Massaker, dann die Punktlandung.",
-      "Die Flucht in die Offentlichkeit: Wer im Examen weint, erregt öffentliches Ärgernis.",
-      "Examens-Garantie: Wenn du § 242 BGB zitierst, nickt der Korrektor milde.",
-      "Der Schockschaden: Wer den Unfall sieht und verrückt wird, bekommt Schmerzensgeld.",
-      "Der Dachdecker-Fall: Absturz ohne Sicherung ist Eigengefährdung.",
-      "Mittelbare Täterschaft: Das Werkzeug weiß von nichts, der Boss geht ins Gefängnis.",
-      "Der Holzschneide-Fall: Wer Nachbars Baum absägt, begeht Sachbeschädigung aus Nachbarschaftsliebe.",
       "Condicio sine qua non: Ohne Geburt kein Staatsexamen.",
-      "Ultra posse nemo tenetur: Niemand ist verpflichtet, das Unmögliche im Examen zu wissen.",
-      "Der Kannibale von Rotenburg: Einverständliche Tötung bleibt Mord/Totschlag.",
-      "Jura-Pro-Tipp: Wenn du die Norm nicht kennst, nimm Grundsatz von Treu und Glauben.",
-      "Der Schulfreund-Fall: Wer dem Kumpel die Frau ausspannte, verliert nicht das Recht zur Bürgschaft.",
-      "Examen im Sommer: Der Schweiß auf der Klausur gilt nicht als Anfechtungserklärung.",
-      "Der Hühnerpest-Fall: Wenn alle Hühner sterben, ist die Beweislast umgekehrt.",
-      "Anfechtung nach § 119 I BGB: Wenn du 'Ja' sagst, aber 'Nein' meinst.",
-      "Der Brunnenfall: Gift im Brunnen ist immer Gemeingefährlich.",
-      "Der Ziegenhain-Fall: Wenn die Ziege den Zaun frisst, ist das Nachbarrecht berührt.",
-      "LKW-Fahrer schläft ein: Sekundenschlaf ist fahrlässige Trunkenheit.",
-      "Die actio libera in causa: Erst betrinken, dann zustechen – das Gesetz vergisst nichts.",
-      "Tätige Reue: Wer die Bombe entschärft, kriegt Strafrabatt.",
-      "Der Fenstersturz-Fall: Wer jemanden aus dem 3. Stock wirft, billigt den Tod billigend.",
-      "Die GoA (§ 677 BGB): Wer deinen brennenden Hund rettet, will dein Geld.",
-      "Der Parkplatzfall: Wer auf den kostenpflichtigen Platz fährt, schließt konkludent einen Vertrag.",
-      "Der Berliner Testament-Fall: Wer früher stirbt, vererbt dem Letzten alles.",
-      "Der Blutalkohol-Klassiker: 3,0 Promille ist Schuldunfähigkeit, außer im Repetitorium.",
-      "Der Rasenmäher-Fall: Sonntagsmähen ist verbotene Eigenmacht im Lärmschutz.",
-      "Die Putativnotwehr: Du dachtest, der Kumpel greift dich an, aber er wollte dich nur umarmen.",
-      "Der Leichen-Fall: Totenbeschimpfung ist Störung der Totenruhe.",
-      "Das Reichskriminalamt sagte einst: Juristen trinken mehr als der Durchschnitt.",
-      "Kausalkette: Hätte deine Mutter den Vater nicht getroffen, hättest du kein Examen.",
-      "Der Apfelsaft-Fall: Wer giftigen Apfelsaft serviert, begeht Mordversuch.",
-      "Examenstragödie: Sachverhalt falsch gelesen – 30 Seiten für die Tonne.",
-      "Der Briefkasten-Fall: Einwurf um 23:59 Uhr gilt als am selben Tag zugegangen.",
-      "Der Hundebiss-Fall: Gefährdungshaftung betrifft auch den süßesten Dackel.",
-      "In dubio pro reo: Im Zweifel für den Angeklagten, aber nie für den Prüfling.",
-      "Der Tankstellen-Fall: Wer ohne zu zahlen wegfährt, begeht Diebstahl an Benzin.",
-      "Der Schwarzfahrer-Fall: Erschleichen von Leistungen ist das Armutszeugnis des StGB.",
-      "Der Giftmord mit Nachschub: Bricht das Opfer ab, war es erst der Versuch.",
-      "Der Fahrraddiebstahl im Fluss: Wer das Rad im See versenkt, eignet es sich zu.",
-      "Die Sittenwidrigkeit (§ 138 BGB): Schneeball-Systeme brechen das Gesetz.",
-      "Der Scheinvater: Wer Alimente für das fremde Kind zahlt, hat Regressanspruch.",
-      "Der Bungee-Jumping-Fall: Wer das Seil zu lang bemisst, haftet für Körperverletzung.",
-      "Der Regenschirm-Fall: Wer im Biergarten den Schirm vertauscht, begeht Irrtum.",
-      "Die Verwirkung: Wer 20 Jahre schweigt, verliert sein Recht.",
-      "Der Verfolger-Fall: Wer dem Dieb nachrennt und stürzt, kriegt Schadensersatz.",
-      "Der Pfandflaschen-Fall: Flaschensammler schließen Verträge mit dem Supermarkt.",
-      "Examens-Beweis: Die Korrekturzeit dauert länger als das gesamte Studium.",
-      "Der Goldzahn-Fall: Zähne im Mund sind keine Sachen, herausgebrochene schon.",
-      "Der Tauben-Fall: Nachbars Taubenkot ist eine wesentliche Beeinträchtigung.",
-      "Die Rechtsfähigkeit (§ 1 BGB): Beginnt mit Vollendung der Geburt. Herzlichen Glückwunsch!",
-      "Der Hochzeitsfotograf-Fall: Wenn die Fotos hässlich sind, gibt es Minderung.",
-      "Der Kellerbrand-Fall: Wer die Kerze vergisst, haftet grob fahrlässig.",
-      "Die Fremdbesitzerexzess-Logik: Der Mieter, der die Bude abbrennt, haftet exzessiv.",
-      "Der Giftspinnen-Fall: Wer Exoten hält, trägt das volle Risiko.",
-      "Der Unfallflucht-Klassiker: 15 Minuten Warten auf dem Supermarktparkplatz ist Pflicht.",
-      "Der Erbverzicht: Geld gegen Verzicht ist die sauberste Lösung.",
-      "Der Schlafwandler-Fall: Wer im Schlaf die Vase zerbricht, handelt nicht handlungsfähig.",
-      "Die Verjährung (§ 195 BGB): 3 Jahre Regelverjährung retten die faulen Schuldner.",
-      "Der Schlüsselverlust-Fall: Wer den Generalschlüssel verliert, zahlt die Schließanlage.",
-      "Das Grundgesetz: Artikel 1 I GG schützt dich vor fiesen Korrektoren.",
-      "Der Katastrophen-Fall: Notstand rechtfertigt fast alles, außer Mord.",
-      "Der Dachlawinen-Fall: Autobesitzer haftet oft selbst, wenn der Schnee fällt.",
-      "Der Juwelier-Fall: Wer die gefälschte Kette als echt verkauft, haftet.",
-      "Der Testaments-Fleck: Ein Kaffeefleck macht das Testament nicht ungültig.",
-      "Die Störung der Geschäftsgrundlage (§ 313 BGB): Wenn die Welt untergeht, passe den Vertrag an.",
-      "Der Blitzer-Fall: Wer das Gesicht auf dem Foto ausradiert, begeht Urkundenfälschung.",
-      "Der Schwimmbad-Fall: Chlorallergie ist kein Mangel des Wassers.",
-      "Der Döner-Fall: Wer Fleisch statt Halal serviert, bricht den Vertrag.",
-      "Der Gift-Kuchen: Wer der Schwiegermutter Arsen backt, lernt § 211 StGB.",
-      "Der Scheinfahrrelevanz-Klassiker: Jura-Studenten wissen alles, außer wie man lebt.",
-      "Der Wespen-Fall: Ein Wespenstich im Biergarten ist allgemeines Lebensrisiko.",
-      "Der Baustellen-Fall: 'Eltern haften für ihre Kinder' stimmt rechtlich fast nie!",
-      "Der Schwarzbau-Fall: Nach 30 Jahren reißt das Bauamt dein Haus trotzdem ab.",
-      "Der Fundbüro-Fall: Wer das Portemonnaie behält, begeht Fundunterschlagung.",
-      "Der Zahnarzt-Fall: Behandlungsfehler verjähren erst nach Kenntnis.",
-      "Examenstraum: Am Ende steht die Notenskala zwischen 4 und 18 Punkten (meist 4).",
-      "Der Trauring-Fall: Bei Rücktritt von der Verlobung müssen die Ringe zurück.",
-      "Der Weinflaschen-Fall: Wer die Weinstation bedient, rechtfertigt seinen Feierabend!"
+      "Der Kannibale von Rotenburg: Einverständliche Tötung bleibt Mord/Totschlag."
+    ];
+
+    const juraCases = [
+      "💀 KATZENKÖNIGFALL: A glaubt fest, der Katzenkönig verlangt ein Menschenopfer. Er sticht zu. BGH: Mittelbare Täterschaft!",
+      "💀 SIRIUSFALL: Mann redet Frau ein, ihr Körper werde zerstört und auf 'Sirius' neu geboren. Versuchter Mord!",
+      "💀 ROSE-ROSAHL: A heuert B an, C zu erschießen. B erschießt versehentlich D. BGH: Für A & B bleibt es Mord!",
+      "💀 HAUSTYRANNE: Frau erschießt schlafenden Haustyrannen nach Jahren der Gewalt. Heimtücke (+)."
     ];
 
     function switchMode(selectedCategory) {
@@ -414,12 +385,16 @@
       if (activeGroup) activeGroup.classList.add('active');
 
       const btn = document.getElementById("submitBtn");
+      btn.className = "btn-submit"; 
+
       if (selectedCategory === "ORACLE") {
-        btn.innerText = "🔮 Orakel befragen & absenden";
-        btn.classList.add("oracle-btn");
+        btn.innerText = "🔮 Orakel-Spruch generieren & senden";
+        btn.classList.add("btn-oracle");
+      } else if (selectedCategory === "CASE") {
+        btn.innerText = "💀 Aktenfall ziehen & senden";
+        btn.classList.add("btn-case");
       } else {
-        btn.innerText = "Formgerecht zustellen ⚖️";
-        btn.classList.remove("oracle-btn");
+        btn.innerText = "Senden";
       }
 
       updatePreview();
@@ -432,7 +407,8 @@
 
       switch (category) {
         case "TEXT": msg = document.getElementById("msgText").value; break;
-        case "ORACLE": msg = "🔮 [EXAMENS-FACT GEHEIM – Erscheint auf dem OLED!]"; break;
+        case "ORACLE": msg = "🔮 [Top Secret: Erscheint auf dem OLED!]"; break;
+        case "CASE": msg = "💀 [Top Secret: Liest du gleich auf dem OLED!]"; break;
         case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
         case "STATUS": msg = document.getElementById("statusSelect").value; break;
         case "COUNTDOWN":
@@ -457,21 +433,28 @@
       const status = document.getElementById("status");
       const sender = document.getElementById("sender").value;
       const category = document.getElementById("category").value;
-      const wheel = document.getElementById("wheel");
-
+      
       let msg = "";
+      let delay = 0;
 
       if (category === "ORACLE") {
-        // ZUFÄLLIGEN FACT AUSWÄHLEN
         const randomIndex = Math.floor(Math.random() * juraFacts.length);
         msg = "🔮 " + juraFacts[randomIndex];
-
-        // Animiere das Orakel-Rad
-        wheel.style.display = "inline-block";
+        document.getElementById("wheel-oracle").style.display = "inline-block";
         btn.disabled = true;
         btn.innerText = "Orakel beschwört Spruch...";
-        status.style.color = "#d6a4ff";
-        status.innerText = "Das Examens-Schicksal wird ermittelt...";
+        status.style.color = "#af52de";
+        status.innerText = "Ermittle Schicksal...";
+        delay = 1200;
+      } else if (category === "CASE") {
+        const randomIndex = Math.floor(Math.random() * juraCases.length);
+        msg = juraCases[randomIndex];
+        document.getElementById("wheel-case").style.display = "inline-block";
+        btn.disabled = true;
+        btn.innerText = "Öffne Gerichtsakte...";
+        status.style.color = "#ff453a";
+        status.innerText = "Ziehe Fall-Akte...";
+        delay = 1200;
       } else {
         switch (category) {
           case "TEXT": msg = document.getElementById("msgText").value; break;
@@ -490,12 +473,11 @@
         }
 
         btn.disabled = true;
-        btn.innerText = "Zustellung läuft...";
-        status.style.color = "#a0aec0";
-        status.innerText = "Prüfe Zustellungsfähigkeit...";
+        btn.innerText = "Sende...";
+        status.style.color = "#86868b";
+        status.innerText = "Verbindung wird aufgebaut...";
       }
 
-      // Verzögerung für mysteriösen Effekt
       setTimeout(() => {
         fetch(SCRIPT_URL, {
           method: "POST",
@@ -504,24 +486,20 @@
           body: new URLSearchParams({ "sender": sender, "category": category, "message": msg })
         })
         .then(() => {
-          wheel.style.display = "none";
-          status.style.color = "#4ECA78";
-          if (category === "ORACLE") {
-            status.innerText = "🔮 Orakelgespruch wurde geheim an das OLED-Display gesendet! Schau auf die Weinstation! 🍷";
-          } else {
-            status.innerText = "✓ Ordnungsgemäß auf dem Display zugestellt!";
-          }
+          document.querySelectorAll('.spinning-wheel').forEach(w => w.style.display = "none");
+          status.style.color = "#30d158";
+          status.innerText = "✓ Erfolgreich an das Display gesendet!";
           btn.disabled = false;
-          btn.innerText = category === "ORACLE" ? "🔮 Orakel befragen & absenden" : "Formgerecht zustellen ⚖️";
+          switchMode(category);
         })
         .catch(err => {
-          wheel.style.display = "none";
-          status.style.color = "#e63956";
-          status.innerText = "Fehler bei der Übermittlung!";
+          document.querySelectorAll('.spinning-wheel').forEach(w => w.style.display = "none");
+          status.style.color = "#ff453a";
+          status.innerText = "Übertragung fehlgeschlagen.";
           btn.disabled = false;
-          btn.innerText = "Formgerecht zustellen ⚖️";
+          switchMode(category);
         });
-      }, category === "ORACLE" ? 1500 : 0);
+      }, delay);
     });
 
     updatePreview();
