@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wein-Botschaft senden 🍷</title>
+  <title>Amtliche Übermittlung | Wein-Botschaft ⚖️</title>
   <style>
     :root {
-      --bg-color: #1a0915;
-      --card-bg: #2d1225;
-      --accent: #e63956;
+      --bg-color: #12151c;
+      --card-bg: #1c2230;
+      --accent: #d4af37; /* Juristisches Gold */
       --text: #f8f9fa;
-      --subtext: #b3a2b0;
+      --subtext: #9aa5b8;
+      --border-color: #2e384e;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "Georgia", "Times New Roman", serif;
       background-color: var(--bg-color);
       color: var(--text);
       display: flex;
@@ -29,46 +30,58 @@
     .card {
       background-color: var(--card-bg);
       padding: 30px 25px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       text-align: center;
-      border: 1px solid rgba(230, 57, 86, 0.2);
+      border: 1px solid var(--border-color);
+    }
+
+    .header-icon {
+      font-size: 2.2rem;
+      margin-bottom: 5px;
     }
 
     h1 {
       margin-top: 0;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     p {
       color: var(--subtext);
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       margin-bottom: 25px;
+      font-style: italic;
     }
 
     label {
       display: block;
       text-align: left;
-      font-size: 0.85rem;
-      color: var(--subtext);
+      font-size: 0.8rem;
+      color: var(--accent);
       margin-bottom: 6px;
       margin-top: 15px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     input, textarea {
       width: 100%;
       padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #4a213f;
-      background-color: #1a0915;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: #12151c;
       color: var(--text);
-      font-size: 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.95rem;
       box-sizing: border-box;
       outline: none;
-      transition: border 0.3s;
+      transition: border-color 0.3s;
     }
 
     input:focus, textarea:focus {
@@ -79,14 +92,16 @@
       margin-top: 25px;
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #e63956, #911a37);
-      color: white;
+      background: linear-gradient(135deg, #d4af37, #aa820a);
+      color: #12151c;
       border: none;
-      border-radius: 10px;
-      font-size: 1.05rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
       font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(230, 57, 86, 0.4);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
       transition: transform 0.1s;
     }
 
@@ -96,32 +111,45 @@
 
     #status {
       margin-top: 15px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       min-height: 20px;
+    }
+
+    .legal-notice {
+      margin-top: 20px;
+      font-size: 0.7rem;
+      color: #616e85;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
     }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h1>🍷 Smarte Wein-Botschaft</h1>
-    <p>Schicke eine Nachricht direkt auf das Display der Weinstation!</p>
+    <div class="header-icon">⚖️ 🍷</div>
+    <h1>Zustellungsanzeige</h1>
+    <p>Formelle Übermittlung einer Willenserklärung an die Weinstation</p>
 
     <form id="msgForm">
-      <label for="sender">Dein Name:</label>
-      <input type="text" id="sender" placeholder="z. B. Anna" required maxlength="15">
+      <label for="sender">§ 1 Absender / Erklärender:</label>
+      <input type="text" id="sender" placeholder="z. B. Parteigänger Anna" required maxlength="15">
 
-      <label for="message">Deine Nachricht:</label>
-      <textarea id="message" rows="3" placeholder="Schreibe etwas Schönes..." required maxlength="60"></textarea>
+      <label for="message">§ 2 Gegenstand der Erklärung:</label>
+      <textarea id="message" rows="3" placeholder="Gegenstand der schriftlichen Rüge oder Botschaft..." required maxlength="60"></textarea>
 
-      <button type="submit" id="submitBtn">Botschaft senden ✨</button>
+      <button type="submit" id="submitBtn">Formgerecht zustellen ⚖️</button>
     </form>
 
     <div id="status"></div>
+
+    <div class="legal-notice">
+      Die Übermittlung erfolgt unverzüglich gemäß § 121 BGB auf das OLED-Display.
+    </div>
   </div>
 
   <script>
-    // FÜGE HIER DEINE GOOGLE APPS SCRIPT URL EIN:
+    // GOOGLE APPS SCRIPT URL:
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgNUeYMpiBC9WNMyTA6n8P_30bwthCmVa8TVtlwa9KbcSeCd82UCfzhW3nLCnNn7a1/exec";
 
     document.getElementById("msgForm").addEventListener("submit", function(e) {
@@ -133,9 +161,9 @@
       const message = document.getElementById("message").value;
 
       btn.disabled = true;
-      btn.innerText = "Sende...";
-      status.style.color = "#b3a2b0";
-      status.innerText = "Verbindung wird hergestellt...";
+      btn.innerText = "Zustellung läuft...";
+      status.style.color = "#9aa5b8";
+      status.innerText = "Prüfe Zustellungsfähigkeit...";
 
       // Daten an Google Apps Script senden
       fetch(SCRIPT_URL, {
@@ -151,16 +179,16 @@
       })
       .then(() => {
         status.style.color = "#4ECA78";
-        status.innerText = "✓ Erfolgreich auf das Display gesendet!";
+        status.innerText = "✓ Ordnungsgemäß auf dem Display zugestellt!";
         document.getElementById("message").value = "";
         btn.disabled = false;
-        btn.innerText = "Botschaft senden ✨";
+        btn.innerText = "Formgerecht zustellen ⚖️";
       })
       .catch(err => {
         status.style.color = "#e63956";
-        status.innerText = "Fehler beim Senden. Bitte erneut versuchen.";
+        status.innerText = "Fehler bei der Zustellung. Einspruch einlegen!";
         btn.disabled = false;
-        btn.innerText = "Botschaft senden ✨";
+        btn.innerText = "Formgerecht zustellen ⚖️";
       });
     });
   </script>
