@@ -9,8 +9,6 @@
       --bg-color: #000000;
       --card-bg: rgba(28, 28, 30, 0.75);
       --accent-blue: #2997ff;
-      --accent-purple: #af52de;
-      --accent-red: #ff453a;
       --text-primary: #f5f5f7;
       --text-secondary: #86868b;
       --input-bg: rgba(118, 118, 128, 0.18);
@@ -124,50 +122,6 @@
       display: block;
     }
 
-    /* APPLE CARDS / FEATURE BOXES */
-    .feature-card {
-      border-radius: 14px;
-      padding: 18px 16px;
-      margin-top: 10px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      text-align: center;
-    }
-
-    .oracle-card {
-      border-color: rgba(175, 82, 222, 0.3);
-      background: rgba(175, 82, 222, 0.06);
-    }
-
-    .case-card {
-      border-color: rgba(255, 69, 58, 0.3);
-      background: rgba(255, 69, 58, 0.06);
-    }
-
-    .feature-title {
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 6px;
-    }
-
-    .feature-desc {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      line-height: 1.4;
-    }
-
-    .spinning-wheel {
-      display: none;
-      font-size: 1.8rem;
-      margin-top: 10px;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
     /* APPLE HARDWARE OLED PREVIEW */
     .oled-hardware-container {
       margin-top: 24px;
@@ -210,7 +164,7 @@
       background-color: var(--accent-blue);
       color: #ffffff;
       border: none;
-      border-radius: 980px; /* Classic Apple Pill Button */
+      border-radius: 980px;
       font-size: 0.92rem;
       font-weight: 600;
       letter-spacing: -0.01em;
@@ -225,14 +179,6 @@
 
     .btn-submit:active {
       transform: scale(0.98);
-    }
-
-    .btn-oracle {
-      background-color: var(--accent-purple) !important;
-    }
-
-    .btn-case {
-      background-color: var(--accent-red) !important;
     }
 
     #status {
@@ -268,8 +214,6 @@
       <label for="category">Modus auswählen</label>
       <select id="category" onchange="switchMode(this.value)">
         <option value="TEXT">Freie Nachricht</option>
-        <option value="ORACLE">🔮 Examens-Orakel (Zufalls-Funfacts)</option>
-        <option value="CASE">💀 Makabere Examensfälle (Mini-Story)</option>
         <option value="URTEIL">Gerichtliches Urteil</option>
         <option value="STATUS">Status-Update</option>
         <option value="COUNTDOWN">Countdown</option>
@@ -282,25 +226,7 @@
         <textarea id="msgText" rows="2" placeholder="Deine Nachricht..." maxlength="60" oninput="updatePreview()"></textarea>
       </div>
 
-      <!-- MODUS 2: EXAMENS-ORAKEL -->
-      <div id="mode-ORACLE" class="mode-group">
-        <div class="feature-card oracle-card">
-          <div class="feature-title" style="color: #d783ff;">🔮 Examens-Orakel</div>
-          <div class="feature-desc">Ein makabrer Jura-Funfact wird geheim generiert. Die Auflösung erscheint exklusiv auf dem Display!</div>
-          <div class="spinning-wheel" id="wheel-oracle">☸️</div>
-        </div>
-      </div>
-
-      <!-- MODUS 3: MAKABERE CASES -->
-      <div id="mode-CASE" class="mode-group">
-        <div class="feature-card case-card">
-          <div class="feature-title" style="color: #ff6961;">💀 Aktenfall-Generator</div>
-          <div class="feature-desc">Ein echter, berüchtigter Klassiker-Fall wird gezogen. Kann direkt auf der Weinstation gelesen werden.</div>
-          <div class="spinning-wheel" id="wheel-case">📜</div>
-        </div>
-      </div>
-
-      <!-- MODUS 4: URTEIL -->
+      <!-- MODUS 2: URTEIL -->
       <div id="mode-URTEIL" class="mode-group">
         <label for="verdictSelect">Tenor auswählen</label>
         <select id="verdictSelect" onchange="updatePreview()">
@@ -311,7 +237,7 @@
         </select>
       </div>
 
-      <!-- MODUS 5: STATUS -->
+      <!-- MODUS 3: STATUS -->
       <div id="mode-STATUS" class="mode-group">
         <label for="statusSelect">Status auswählen</label>
         <select id="statusSelect" onchange="updatePreview()">
@@ -322,7 +248,7 @@
         </select>
       </div>
 
-      <!-- MODUS 6: COUNTDOWN -->
+      <!-- MODUS 4: COUNTDOWN -->
       <div id="mode-COUNTDOWN" class="mode-group">
         <label for="cdText">Ereignis</label>
         <input type="text" id="cdText" placeholder="z. B. Pizza da" maxlength="25" oninput="updatePreview()">
@@ -330,7 +256,7 @@
         <input type="number" id="cdMinutes" placeholder="15" min="1" max="180" oninput="updatePreview()">
       </div>
 
-      <!-- MODUS 7: WEIN-TASTING -->
+      <!-- MODUS 5: WEIN-TASTING -->
       <div id="mode-WINE" class="mode-group">
         <label for="wineName">Wein / Jahrgang</label>
         <input type="text" id="wineName" placeholder="Pinot Noir 2021" maxlength="25" oninput="updatePreview()">
@@ -360,42 +286,10 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby0Ig0Ig2vyGpNtl1QXzs6dlk7qMKM8wxUtNq0bT0LxW6qAgy1nSz2NrxnK166q1hcW/exec";
 
-    const juraFacts = [
-      "§ 903 BGB: Tiere sind keine Sachen, werden aber wie Sachen behandelt. RIP Katze.",
-      "Der Kätzchenfall: Wer eine Katze aus Versehen erhitzt, haftet zivilrechtlich.",
-      "Sirupfall: Wer Gift in den Sirup mischt, begeht fahrlässige Tötung im Schlaf.",
-      "Der Rose-Rosahl-Fall: Der Auftragsmörder tötet die falsche Person – unbeachtlicher Error in Persona!",
-      "Das Reichsgericht entschied: Auch Bier ist eine Flüssigkeit im Sinne des Gesetzes.",
-      "Der Sirius-Fall: Wer jemanden überreden will, sich auf 'Sirius' aufzulösen, begeht mittelbare Täterschaft.",
-      "Der Haustyrannen-Fall: Heimtücke durch Schlaf-Tötung ist der Examens-Klassiker.",
-      "Condicio sine qua non: Ohne Geburt kein Staatsexamen.",
-      "Der Kannibale von Rotenburg: Einverständliche Tötung bleibt Mord/Totschlag."
-    ];
-
-    const juraCases = [
-      "💀 KATZENKÖNIGFALL: A glaubt fest, der Katzenkönig verlangt ein Menschenopfer. Er sticht zu. BGH: Mittelbare Täterschaft!",
-      "💀 SIRIUSFALL: Mann redet Frau ein, ihr Körper werde zerstört und auf 'Sirius' neu geboren. Versuchter Mord!",
-      "💀 ROSE-ROSAHL: A heuert B an, C zu erschießen. B erschießt versehentlich D. BGH: Für A & B bleibt es Mord!",
-      "💀 HAUSTYRANNE: Frau erschießt schlafenden Haustyrannen nach Jahren der Gewalt. Heimtücke (+)."
-    ];
-
     function switchMode(selectedCategory) {
       document.querySelectorAll('.mode-group').forEach(g => g.classList.remove('active'));
       const activeGroup = document.getElementById('mode-' + selectedCategory);
       if (activeGroup) activeGroup.classList.add('active');
-
-      const btn = document.getElementById("submitBtn");
-      btn.className = "btn-submit"; 
-
-      if (selectedCategory === "ORACLE") {
-        btn.innerText = "🔮 Orakel-Spruch generieren & senden";
-        btn.classList.add("btn-oracle");
-      } else if (selectedCategory === "CASE") {
-        btn.innerText = "💀 Aktenfall ziehen & senden";
-        btn.classList.add("btn-case");
-      } else {
-        btn.innerText = "Senden";
-      }
 
       updatePreview();
     }
@@ -407,8 +301,6 @@
 
       switch (category) {
         case "TEXT": msg = document.getElementById("msgText").value; break;
-        case "ORACLE": msg = "🔮 [Top Secret: Erscheint auf dem OLED!]"; break;
-        case "CASE": msg = "💀 [Top Secret: Liest du gleich auf dem OLED!]"; break;
         case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
         case "STATUS": msg = document.getElementById("statusSelect").value; break;
         case "COUNTDOWN":
@@ -435,74 +327,42 @@
       const category = document.getElementById("category").value;
       
       let msg = "";
-      let delay = 0;
 
-      if (category === "ORACLE") {
-        const randomIndex = Math.floor(Math.random() * juraFacts.length);
-        msg = "🔮 " + juraFacts[randomIndex];
-        document.getElementById("wheel-oracle").style.display = "inline-block";
-        btn.disabled = true;
-        btn.innerText = "Orakel beschwört Spruch...";
-        status.style.color = "#af52de";
-        status.innerText = "Ermittle Schicksal...";
-        delay = 1200;
-      } else if (category === "CASE") {
-        const randomIndex = Math.floor(Math.random() * juraCases.length);
-        msg = juraCases[randomIndex];
-        document.getElementById("wheel-case").style.display = "inline-block";
-        btn.disabled = true;
-        btn.innerText = "Öffne Gerichtsakte...";
-        status.style.color = "#ff453a";
-        status.innerText = "Ziehe Fall-Akte...";
-        delay = 1200;
-      } else {
-        switch (category) {
-          case "TEXT": msg = document.getElementById("msgText").value; break;
-          case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
-          case "STATUS": msg = document.getElementById("statusSelect").value; break;
-          case "COUNTDOWN":
-            const name = document.getElementById("cdText").value || "Ereignis";
-            const mins = document.getElementById("cdMinutes").value || "0";
-            msg = `⏱️ ${name} in ${mins} Min!`;
-            break;
-          case "WINE":
-            const w = document.getElementById("wineName").value || "Wein";
-            const p = document.getElementById("winePairing").value || "Gute Laune";
-            msg = `🍷 ${w} | Passt zu: ${p}`;
-            break;
-        }
-
-        btn.disabled = true;
-        btn.innerText = "Sende...";
-        status.style.color = "#86868b";
-        status.innerText = "Verbindung wird aufgebaut...";
+      switch (category) {
+        case "TEXT": msg = document.getElementById("msgText").value; break;
+        case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
+        case "STATUS": msg = document.getElementById("statusSelect").value; break;
+        case "COUNTDOWN":
+          const name = document.getElementById("cdText").value || "Ereignis";
+          const mins = document.getElementById("cdMinutes").value || "0";
+          msg = `⏱️ ${name} in ${mins} Min!`;
+          break;
+        case "WINE":
+          const w = document.getElementById("wineName").value || "Wein";
+          const p = document.getElementById("winePairing").value || "Gute Laune";
+          msg = `🍷 ${w} | Passt zu: ${p}`;
+          break;
       }
 
-      setTimeout(() => {
-        fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({ "sender": sender, "category": category, "message": msg })
-        })
-        .then(() => {
-          document.querySelectorAll('.spinning-wheel').forEach(w => w.style.display = "none");
-          status.style.color = "#30d158";
-          status.innerText = "✓ Erfolgreich an das Display gesendet!";
-          btn.disabled = false;
-          switchMode(category);
-        })
-        .catch(err => {
-          document.querySelectorAll('.spinning-wheel').forEach(w => w.style.display = "none");
-          status.style.color = "#ff453a";
-          status.innerText = "Übertragung fehlgeschlagen.";
-          btn.disabled = false;
-          switchMode(category);
-        });
-      }, delay);
-    });
+      btn.disabled = true;
+      btn.innerText = "Sende...";
+      status.style.color = "#86868b";
+      status.innerText = "Verbindung wird aufgebaut...";
 
-    updatePreview();
-  </script>
-</body>
-</html>
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ "sender": sender, "category": category, "message": msg })
+      })
+      .then(() => {
+        status.style.color = "#30d158";
+        status.innerText = "✓ Erfolgreich an das Display gesendet!";
+        btn.disabled = false;
+        btn.innerText = "Senden";
+      })
+      .catch(err => {
+        status.style.color = "#ff453a";
+        status.innerText = "Übertragung fehlgeschlagen.";
+        btn.disabled = false;
+        btn.innerText = "Senden
