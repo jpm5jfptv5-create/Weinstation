@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weinstation — Übermittlung</title>
+  <title>Weinstation — Decretum & Depesche</title>
   <style>
     :root {
-      --bg-color: #000000;
-      --card-bg: rgba(28, 28, 30, 0.75);
-      --accent-blue: #2997ff;
-      --text-primary: #f5f5f7;
-      --text-secondary: #86868b;
-      --input-bg: rgba(118, 118, 128, 0.18);
-      --border-color: rgba(255, 255, 255, 0.12);
+      --bg-color: #0d0d0d;
+      --card-bg: #161414;
+      --wine-red: #801b2b;
+      --wine-hover: #a32237;
+      --gold-accent: #c5a059;
+      --gold-border: rgba(197, 160, 89, 0.3);
+      --text-primary: #f2ebd9;
+      --text-secondary: #a69c8d;
+      --input-bg: #211e1e;
+      --border-color: #2a2525;
     }
 
     * {
@@ -21,7 +24,7 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Georgia", "Times New Roman", serif;
       background-color: var(--bg-color);
       color: var(--text-primary);
       display: flex;
@@ -29,89 +32,146 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
-      padding: 24px;
+      padding: 20px;
     }
 
     .container {
       background: var(--card-bg);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid var(--border-color);
-      border-radius: 22px;
+      border: 1px solid var(--gold-border);
+      border-radius: 12px;
       padding: 36px 28px;
       width: 100%;
-      max-width: 420px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      max-width: 440px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(197, 160, 89, 0.05);
       text-align: center;
+      position: relative;
     }
 
-    .apple-badge {
+    .juris-badge {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--accent-blue);
-      margin-bottom: 8px;
+      color: var(--gold-accent);
+      border: 1px solid var(--gold-border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
     }
 
     h1 {
-      font-size: 1.6rem;
-      font-weight: 600;
-      letter-spacing: -0.015em;
+      font-size: 1.75rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
       margin: 0 0 6px 0;
       color: var(--text-primary);
+      border-bottom: 1px solid var(--gold-border);
+      padding-bottom: 12px;
     }
 
     .subtitle {
-      font-size: 0.88rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.82rem;
       color: var(--text-secondary);
+      margin-top: 10px;
       margin-bottom: 24px;
-      font-weight: 400;
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
     label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       display: block;
       text-align: left;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-accent);
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+
+    /* JURISTISCHE ABSENDER BUTTONS */
+    .sender-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .btn-sender {
+      font-family: "Georgia", serif;
+      background: var(--input-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 10px 6px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-sender:hover {
+      border-color: var(--gold-accent);
+      color: var(--gold-accent);
+    }
+
+    .btn-sender.active {
+      background: var(--wine-red);
+      color: #ffffff;
+      border-color: var(--gold-accent);
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(128, 27, 43, 0.5);
+    }
+
+    .custom-sender-toggle {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: none;
+      border: none;
       color: var(--text-secondary);
-      margin-bottom: 6px;
-      margin-top: 18px;
-      letter-spacing: -0.005em;
+      font-size: 0.75rem;
+      text-decoration: underline;
+      cursor: pointer;
+      display: block;
+      margin: 6px auto 0 auto;
+      transition: color 0.2s ease;
+    }
+
+    .custom-sender-toggle:hover {
+      color: var(--gold-accent);
+    }
+
+    #customSenderContainer {
+      display: none;
+      margin-top: 10px;
+    }
+
+    #customSenderContainer.active {
+      display: block;
     }
 
     input, select, textarea {
       width: 100%;
-      padding: 13px 14px;
-      border-radius: 12px;
+      padding: 11px 13px;
+      border-radius: 6px;
       border: 1px solid var(--border-color);
       background-color: var(--input-bg);
       color: var(--text-primary);
-      font-family: inherit;
-      font-size: 0.92rem;
+      font-family: "Georgia", serif;
+      font-size: 0.9rem;
       outline: none;
-      transition: all 0.2s ease;
-      -webkit-appearance: none;
-    }
-
-    select {
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 16px;
-      padding-right: 36px;
+      transition: border-color 0.2s ease;
     }
 
     select option {
-      background-color: #1c1c1e;
+      background-color: #161414;
       color: var(--text-primary);
     }
 
     input:focus, select:focus, textarea:focus {
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.25);
+      border-color: var(--gold-accent);
     }
 
     .mode-group {
@@ -122,28 +182,28 @@
       display: block;
     }
 
-    /* APPLE HARDWARE OLED PREVIEW */
+    /* HARDWARE PREVIEW DISPLAY */
     .oled-hardware-container {
       margin-top: 24px;
-      background: #000;
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 14px;
+      background: #050505;
+      border: 1px solid var(--gold-border);
+      border-radius: 6px;
+      padding: 12px;
       text-align: left;
-      position: relative;
     }
 
     .oled-header {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.68rem;
-      font-weight: 500;
-      color: var(--text-secondary);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--gold-accent);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid #1c1c1e;
-      padding-bottom: 6px;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid #222;
+      padding-bottom: 5px;
       margin-bottom: 8px;
     }
 
@@ -156,80 +216,84 @@
       line-height: 1.3;
     }
 
-    /* APPLE PILL BUTTONS */
+    /* WINE RED BUTTON */
     .btn-submit {
       margin-top: 24px;
       width: 100%;
-      padding: 14px;
-      background-color: var(--accent-blue);
-      color: #ffffff;
-      border: none;
-      border-radius: 980px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
+      padding: 12px;
+      background-color: var(--wine-red);
+      color: var(--text-primary);
+      border: 1px solid var(--gold-accent);
+      border-radius: 6px;
+      font-family: "Georgia", serif;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .btn-submit:hover {
-      opacity: 0.9;
-      transform: scale(1.005);
+      background-color: var(--wine-hover);
+      box-shadow: 0 0 12px rgba(163, 34, 55, 0.4);
     }
 
     .btn-submit:active {
-      transform: scale(0.98);
+      transform: scale(0.99);
     }
 
     #status {
-      margin-top: 16px;
-      font-size: 0.82rem;
-      min-height: 20px;
-      font-weight: 500;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      min-height: 18px;
     }
 
     .footer-legal {
-      margin-top: 24px;
-      font-size: 0.7rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin-top: 20px;
+      font-size: 0.68rem;
       color: var(--text-secondary);
       border-top: 1px solid var(--border-color);
-      padding-top: 14px;
-      line-height: 1.4;
+      padding-top: 12px;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="apple-badge">Weinstation Display OS</div>
-    <h1>Nachricht senden</h1>
-    <div class="subtitle">Übermittle eine Botschaft oder Anweisung direkt an das OLED-Display.</div>
+    <div class="juris-badge">§ WEINSTATION DECRETUM</div>
+    <h1>Elektronische Depesche</h1>
+    <div class="subtitle">Übermittlung einer amtlichen Anweisung oder Mitteilung an das Display.</div>
 
     <form id="msgForm">
-      <!-- ABSENDER -->
-      <label for="sender">Absender</label>
-      <input type="text" id="sender" placeholder="z. B. Anna" required maxlength="15" oninput="updatePreview()">
-
-      <!-- MODUS SELEKTION -->
-      <label for="category">Modus auswählen</label>
-      <select id="category" onchange="switchMode(this.value)">
-        <option value="TEXT">Freie Nachricht</option>
-        <option value="URTEIL">Gerichtliches Urteil</option>
-        <option value="STATUS">Status-Update</option>
-        <option value="COUNTDOWN">Countdown</option>
-        <option value="WINE">Wein-Empfehlung</option>
-      </select>
-
-      <!-- MODUS 1: FREIER TEXT -->
-      <div id="mode-TEXT" class="mode-group active">
-        <label for="msgText">Nachrichtentext</label>
-        <textarea id="msgText" rows="2" placeholder="Deine Nachricht..." maxlength="60" oninput="updatePreview()"></textarea>
+      <!-- ABSENDER SELEKTION -->
+      <label>Absender der Erklärung</label>
+      <div class="sender-buttons">
+        <button type="button" class="btn-sender active" onclick="selectSender('Katharina', this)">Katharina</button>
+        <button type="button" class="btn-sender" onclick="selectSender('Jakob', this)">Jakob</button>
+        <button type="button" class="btn-sender" onclick="selectSender('Gast', this)">Gast</button>
       </div>
 
-      <!-- MODUS 2: URTEIL -->
-      <div id="mode-URTEIL" class="mode-group">
-        <label for="verdictSelect">Tenor auswählen</label>
-        <select id="verdictSelect" onchange="updatePreview()">
+      <button type="button" class="custom-sender-toggle" onclick="toggleCustomSender()">＋ Anderen Namen eingeben</button>
+
+      <div id="customSenderContainer">
+        <input type="text" id="customSenderInput" placeholder="Name eingeben..." maxlength="15">
+      </div>
+
+      <!-- MODUS SELEKTION -->
+      <label for="category">Kategorie / Rubrum</label>
+      <select id="category">
+        <option value="URTEIL">⚖️ Gerichtliches Urteil</option>
+        <option value="TEXT">📜 Freie Mitteilung</option>
+        <option value="STATUS">📌 Status-Dekret</option>
+        <option value="COUNTDOWN">⏱️ Frist & Countdown</option>
+        <option value="WINE">🍷 Wein-Gutachten</option>
+      </select>
+
+      <!-- MODUS 1: URTEIL (STANDARD JURISTISCH) -->
+      <div id="mode-URTEIL" class="mode-group active">
+        <label for="verdictSelect">Tenor der Entscheidung</label>
+        <select id="verdictSelect">
           <option value="Der Beklagte wird verurteilt, unverzüglich Wein nachzuschenken.">Der Beklagte wird verurteilt, unverzüglich Wein nachzuschenken.</option>
           <option value="Einstweilige Verfügung: Sofortiger Stopp von Hausarbeiten!">Einstweilige Verfügung: Sofortiger Stopp von Hausarbeiten!</option>
           <option value="Beweisbeschluss: Die Qualität erfordert ein zweites Glas.">Beweisbeschluss: Die Qualität erfordert ein zweites Glas.</option>
@@ -237,10 +301,16 @@
         </select>
       </div>
 
+      <!-- MODUS 2: FREIER TEXT -->
+      <div id="mode-TEXT" class="mode-group">
+        <label for="msgText">Freier Wortlaut</label>
+        <textarea id="msgText" rows="2" placeholder="Text der Mitteilung..." maxlength="60"></textarea>
+      </div>
+
       <!-- MODUS 3: STATUS -->
       <div id="mode-STATUS" class="mode-group">
-        <label for="statusSelect">Status auswählen</label>
-        <select id="statusSelect" onchange="updatePreview()">
+        <label for="statusSelect">Aktueller Status</label>
+        <select id="statusSelect">
           <option value="🍷 Feierabend-Modus aktiv">🍷 Feierabend-Modus aktiv</option>
           <option value="🔋 Akku leer – bitte Wein/Kaffee einschenken">🔋 Akku leer – bitte Wein/Kaffee einschenken</option>
           <option value="🤫 Ruhe vor dem Gericht: Bitte nicht stören">🤫 Ruhe vor dem Gericht: Bitte nicht stören</option>
@@ -250,62 +320,95 @@
 
       <!-- MODUS 4: COUNTDOWN -->
       <div id="mode-COUNTDOWN" class="mode-group">
-        <label for="cdText">Ereignis</label>
-        <input type="text" id="cdText" placeholder="z. B. Pizza da" maxlength="25" oninput="updatePreview()">
-        <label for="cdMinutes">Minuten</label>
-        <input type="number" id="cdMinutes" placeholder="15" min="1" max="180" oninput="updatePreview()">
+        <label for="cdText">Bezeichnung der Frist</label>
+        <input type="text" id="cdText" placeholder="z. B. Beratungsende" maxlength="25">
+        <label for="cdMinutes">Restdauer (in Minuten)</label>
+        <input type="number" id="cdMinutes" placeholder="15" min="1" max="180">
       </div>
 
       <!-- MODUS 5: WEIN-TASTING -->
       <div id="mode-WINE" class="mode-group">
-        <label for="wineName">Wein / Jahrgang</label>
-        <input type="text" id="wineName" placeholder="Pinot Noir 2021" maxlength="25" oninput="updatePreview()">
-        <label for="winePairing">Passt zu</label>
-        <input type="text" id="winePairing" placeholder="Käse & Pasta 🧀" maxlength="25" oninput="updatePreview()">
+        <label for="wineName">Rebsorte / Jahrgang</label>
+        <input type="text" id="wineName" placeholder="Pinot Noir 2021" maxlength="25">
+        <label for="winePairing">Empfohlene Speise</label>
+        <input type="text" id="winePairing" placeholder="Käse & Pasta 🧀" maxlength="25">
       </div>
 
-      <!-- HARDWARE DISPLAY PREVIEW -->
+      <!-- DISPLAY LIVE PREVIEW -->
       <div class="oled-hardware-container">
         <div class="oled-header">
-          <span>OLED Live-Vorschau</span>
-          <span>0.96″ Display</span>
+          <span>OLED Vorschau</span>
+          <span>Weinstation OS</span>
         </div>
-        <div class="oled-text" id="oledPreviewText">Warte auf Eingabe...</div>
+        <div class="oled-text" id="oledPreviewText">Katharina: ...</div>
       </div>
 
-      <button type="submit" id="submitBtn" class="btn-submit">Senden</button>
+      <button type="submit" id="submitBtn" class="btn-submit">Absenden & Zustellen</button>
     </form>
 
     <div id="status"></div>
 
     <div class="footer-legal">
-      Übertragung via Google Script Endpoint auf ESP32 Hardware.
+      Gez. Weinstation Gerichtshof • Übertragung via Google Endpunkt
     </div>
   </div>
 
   <script>
-    // AKTUELLE DEPLOYMENT URL:
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnutAtTGoe5NSJNGCXOPCnNCqpKH9ptNpTWo9zDJlE56ymWBP5DLfzmMCXDYvIpJs/exec";
 
-    function switchMode(selectedCategory) {
-      document.querySelectorAll('.mode-group').forEach(g => g.classList.remove('active'));
-      const activeGroup = document.getElementById('mode-' + selectedCategory);
-      if (activeGroup) activeGroup.classList.add('active');
+    let selectedSenderName = "Katharina";
+    let isCustomSender = false;
 
+    const categorySelect = document.getElementById("category");
+    const previewText = document.getElementById("oledPreviewText");
+    const customSenderInput = document.getElementById("customSenderInput");
+    const customSenderContainer = document.getElementById("customSenderContainer");
+
+    function selectSender(name, buttonElement) {
+      isCustomSender = false;
+      selectedSenderName = name;
+      
+      document.querySelectorAll('.btn-sender').forEach(b => b.classList.remove('active'));
+      buttonElement.classList.add('active');
+      
+      customSenderContainer.classList.remove('active');
+      customSenderInput.value = "";
+      
       updatePreview();
     }
 
+    function toggleCustomSender() {
+      isCustomSender = true;
+      document.querySelectorAll('.btn-sender').forEach(b => b.classList.remove('active'));
+      customSenderContainer.classList.add('active');
+      customSenderInput.focus();
+      updatePreview();
+    }
+
+    function getActiveSender() {
+      if (isCustomSender) {
+        return customSenderInput.value.trim() || "Absender";
+      }
+      return selectedSenderName;
+    }
+
     function updatePreview() {
-      const sender = document.getElementById("sender").value || "Absender";
-      const category = document.getElementById("category").value;
+      const sender = getActiveSender();
+      const category = categorySelect.value;
       let msg = "";
 
       switch (category) {
-        case "TEXT": msg = document.getElementById("msgText").value; break;
-        case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
-        case "STATUS": msg = document.getElementById("statusSelect").value; break;
+        case "URTEIL":
+          msg = document.getElementById("verdictSelect").value;
+          break;
+        case "TEXT":
+          msg = document.getElementById("msgText").value;
+          break;
+        case "STATUS":
+          msg = document.getElementById("statusSelect").value;
+          break;
         case "COUNTDOWN":
-          const name = document.getElementById("cdText").value || "Ereignis";
+          const name = document.getElementById("cdText").value || "Frist";
           const mins = document.getElementById("cdMinutes").value || "0";
           msg = `⏱️ ${name} in ${mins} Min!`;
           break;
@@ -316,25 +419,38 @@
           break;
       }
 
-      document.getElementById("oledPreviewText").innerText = `${sender}: ${msg || "..."}`;
+      previewText.innerText = `${sender}: ${msg || "..."}`;
     }
 
+    categorySelect.addEventListener("change", function() {
+      document.querySelectorAll('.mode-group').forEach(g => g.classList.remove('active'));
+      const activeGroup = document.getElementById('mode-' + this.value);
+      if (activeGroup) activeGroup.classList.add('active');
+      updatePreview();
+    });
+
+    document.querySelectorAll("input, textarea, select").forEach(element => {
+      element.addEventListener("input", updatePreview);
+      element.addEventListener("change", updatePreview);
+    });
+
+    // Sende-Logik
     document.getElementById("msgForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
       const btn = document.getElementById("submitBtn");
       const status = document.getElementById("status");
-      const sender = document.getElementById("sender").value;
-      const category = document.getElementById("category").value;
+      const sender = getActiveSender();
+      const category = categorySelect.value;
       
       let msg = "";
 
       switch (category) {
-        case "TEXT": msg = document.getElementById("msgText").value; break;
         case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
+        case "TEXT": msg = document.getElementById("msgText").value; break;
         case "STATUS": msg = document.getElementById("statusSelect").value; break;
         case "COUNTDOWN":
-          const name = document.getElementById("cdText").value || "Ereignis";
+          const name = document.getElementById("cdText").value || "Frist";
           const mins = document.getElementById("cdMinutes").value || "0";
           msg = `⏱️ ${name} in ${mins} Min!`;
           break;
@@ -346,11 +462,10 @@
       }
 
       btn.disabled = true;
-      btn.innerText = "Sende...";
-      status.style.color = "#86868b";
+      btn.innerText = "Zustellung läuft...";
+      status.style.color = "#a69c8d";
       status.innerText = "Verbindung wird aufgebaut...";
 
-      // Standard Form-Data Payload gegen CORS-Probleme:
       const formData = new URLSearchParams();
       formData.append("sender", sender);
       formData.append("category", category);
@@ -365,18 +480,21 @@
         body: formData.toString()
       })
       .then(() => {
-        status.style.color = "#30d158";
-        status.innerText = "✓ Erfolgreich an das Display gesendet!";
+        status.style.color = "#34c759";
+        status.innerText = "✓ Erfolgreich zugestellt!";
         btn.disabled = false;
-        btn.innerText = "Senden";
+        btn.innerText = "Absenden & Zustellen";
       })
       .catch(err => {
         status.style.color = "#ff453a";
-        status.innerText = "Übertragung fehlgeschlagen.";
+        status.innerText = "Fehler bei der Zustellung.";
         btn.disabled = false;
-        btn.innerText = "Senden";
+        btn.innerText = "Absenden & Zustellen";
       });
     });
+
+    // Initiale Vorschau laden
+    updatePreview();
   </script>
 </body>
 </html>
