@@ -244,7 +244,7 @@
           <option value="🍷 Feierabend-Modus aktiv">🍷 Feierabend-Modus aktiv</option>
           <option value="🔋 Akku leer – bitte Wein/Kaffee einschenken">🔋 Akku leer – bitte Wein/Kaffee einschenken</option>
           <option value="🤫 Ruhe vor dem Gericht: Bitte nicht stören">🤫 Ruhe vor dem Gericht: Bitte nicht stören</option>
-          <option value="🎉 Das Wochenende ist offiziell eingeläutet!">🎉 Das Wochenende ist offiziell eingeläutet!</option>
+          <option value="🎉 Das Wochenende ist officially eingeläutet!">🎉 Das Wochenende ist officially eingeläutet!</option>
         </select>
       </div>
 
@@ -280,3 +280,34 @@
 
     <div class="footer-legal">
       Übertragung via Google Script Endpoint auf ESP32 Hardware.
+    </div>
+  </div>
+
+  <script>
+    // NEUE DEPLOYMENT URL MIT DEINER SKRIPT-ID:
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw13JoO7ZnJWbvaJ32WgI3Dg__zDfz88Wvj4Gahbj4te9os9xvewaSUOULS7_I7ZDvQ/exec";
+
+    function switchMode(selectedCategory) {
+      document.querySelectorAll('.mode-group').forEach(g => g.classList.remove('active'));
+      const activeGroup = document.getElementById('mode-' + selectedCategory);
+      if (activeGroup) activeGroup.classList.add('active');
+
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const sender = document.getElementById("sender").value || "Absender";
+      const category = document.getElementById("category").value;
+      let msg = "";
+
+      switch (category) {
+        case "TEXT": msg = document.getElementById("msgText").value; break;
+        case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
+        case "STATUS": msg = document.getElementById("statusSelect").value; break;
+        case "COUNTDOWN":
+          const name = document.getElementById("cdText").value || "Ereignis";
+          const mins = document.getElementById("cdMinutes").value || "0";
+          msg = `⏱️ ${name} in ${mins} Min!`;
+          break;
+        case "WINE":
+          const w = document.getElementById("wineName
