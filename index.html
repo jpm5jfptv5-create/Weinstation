@@ -97,7 +97,7 @@
     }
 
     select {
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%86868b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
       background-repeat: no-repeat;
       background-position: right 12px center;
       background-size: 16px;
@@ -279,101 +279,4 @@
     <div id="status"></div>
 
     <div class="footer-legal">
-      Übertragung via Google Script Endpoint auf ESP32-C3 Hardware.
-    </div>
-  </div>
-
-  <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxwJvNutq9CgfrFWPNqnBxSDCCuGh_rUKhWzutZbHk6n3W7LLDp153Mstx4Q9TDIcb4/exec";
-
-    function switchMode(selectedCategory) {
-      document.querySelectorAll('.mode-group').forEach(g => g.classList.remove('active'));
-      const activeGroup = document.getElementById('mode-' + selectedCategory);
-      if (activeGroup) activeGroup.classList.add('active');
-
-      updatePreview();
-    }
-
-    function updatePreview() {
-      const sender = document.getElementById("sender").value || "Absender";
-      const category = document.getElementById("category").value;
-      let msg = "";
-
-      switch (category) {
-        case "TEXT": msg = document.getElementById("msgText").value; break;
-        case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
-        case "STATUS": msg = document.getElementById("statusSelect").value; break;
-        case "COUNTDOWN":
-          const name = document.getElementById("cdText").value || "Ereignis";
-          const mins = document.getElementById("cdMinutes").value || "0";
-          msg = `⏱️ ${name} in ${mins} Min!`;
-          break;
-        case "WINE":
-          const w = document.getElementById("wineName").value || "Wein";
-          const p = document.getElementById("winePairing").value || "Gute Laune";
-          msg = `🍷 ${w} | Passt zu: ${p}`;
-          break;
-      }
-
-      document.getElementById("oledPreviewText").innerText = `${sender}: ${msg || "..."}`;
-    }
-
-  document.getElementById("msgForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  
-  const btn = document.getElementById("submitBtn");
-  const status = document.getElementById("status");
-  const sender = document.getElementById("sender").value;
-  const category = document.getElementById("category").value;
-  
-  let msg = "";
-
-  switch (category) {
-    case "TEXT": msg = document.getElementById("msgText").value; break;
-    case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
-    case "STATUS": msg = document.getElementById("statusSelect").value; break;
-    case "COUNTDOWN":
-      const name = document.getElementById("cdText").value || "Ereignis";
-      const mins = document.getElementById("cdMinutes").value || "0";
-      msg = `⏱️ ${name} in ${mins} Min!`;
-      break;
-    case "WINE":
-      const w = document.getElementById("wineName").value || "Wein";
-      const p = document.getElementById("winePairing").value || "Gute Laune";
-      msg = `🍷 ${w} | Passt zu: ${p}`;
-      break;
-  }
-
-  btn.disabled = true;
-  btn.innerText = "Sende...";
-  status.style.color = "#86868b";
-  status.innerText = "Verbindung wird aufgebaut...";
-
-  // PAYLOAD ALS CLEANES JSON:
-  const payload = JSON.stringify({
-    sender: sender,
-    category: category,
-    message: msg
-  });
-
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "text/plain" // Google verlangt text/plain bei CORS-Free Requests
-    },
-    body: payload
-  })
-  .then(() => {
-    status.style.color = "#30d158";
-    status.innerText = "✓ Erfolgreich an das Display gesendet!";
-    btn.disabled = false;
-    btn.innerText = "Senden";
-  })
-  .catch(err => {
-    status.style.color = "#ff453a";
-    status.innerText = "Übertragung fehlgeschlagen.";
-    btn.disabled = false;
-    btn.innerText = "Senden";
-  });
-});
+      Übertragung via Google Script Endpoint auf ESP32 Hardware.
