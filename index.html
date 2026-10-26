@@ -318,51 +318,62 @@
       document.getElementById("oledPreviewText").innerText = `${sender}: ${msg || "..."}`;
     }
 
-    document.getElementById("msgForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      
-      const btn = document.getElementById("submitBtn");
-      const status = document.getElementById("status");
-      const sender = document.getElementById("sender").value;
-      const category = document.getElementById("category").value;
-      
-      let msg = "";
+  document.getElementById("msgForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById("submitBtn");
+  const status = document.getElementById("status");
+  const sender = document.getElementById("sender").value;
+  const category = document.getElementById("category").value;
+  
+  let msg = "";
 
-      switch (category) {
-        case "TEXT": msg = document.getElementById("msgText").value; break;
-        case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
-        case "STATUS": msg = document.getElementById("statusSelect").value; break;
-        case "COUNTDOWN":
-          const name = document.getElementById("cdText").value || "Ereignis";
-          const mins = document.getElementById("cdMinutes").value || "0";
-          msg = `⏱️ ${name} in ${mins} Min!`;
-          break;
-        case "WINE":
-          const w = document.getElementById("wineName").value || "Wein";
-          const p = document.getElementById("winePairing").value || "Gute Laune";
-          msg = `🍷 ${w} | Passt zu: ${p}`;
-          break;
-      }
+  switch (category) {
+    case "TEXT": msg = document.getElementById("msgText").value; break;
+    case "URTEIL": msg = document.getElementById("verdictSelect").value; break;
+    case "STATUS": msg = document.getElementById("statusSelect").value; break;
+    case "COUNTDOWN":
+      const name = document.getElementById("cdText").value || "Ereignis";
+      const mins = document.getElementById("cdMinutes").value || "0";
+      msg = `⏱️ ${name} in ${mins} Min!`;
+      break;
+    case "WINE":
+      const w = document.getElementById("wineName").value || "Wein";
+      const p = document.getElementById("winePairing").value || "Gute Laune";
+      msg = `🍷 ${w} | Passt zu: ${p}`;
+      break;
+  }
 
-      btn.disabled = true;
-      btn.innerText = "Sende...";
-      status.style.color = "#86868b";
-      status.innerText = "Verbindung wird aufgebaut...";
+  btn.disabled = true;
+  btn.innerText = "Sende...";
+  status.style.color = "#86868b";
+  status.innerText = "Verbindung wird aufgebaut...";
 
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ "sender": sender, "category": category, "message": msg })
-      })
-      .then(() => {
-        status.style.color = "#30d158";
-        status.innerText = "✓ Erfolgreich an das Display gesendet!";
-        btn.disabled = false;
-        btn.innerText = "Senden";
-      })
-      .catch(err => {
-        status.style.color = "#ff453a";
-        status.innerText = "Übertragung fehlgeschlagen.";
-        btn.disabled = false;
-        btn.innerText = "Senden
+  // PAYLOAD ALS CLEANES JSON:
+  const payload = JSON.stringify({
+    sender: sender,
+    category: category,
+    message: msg
+  });
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain" // Google verlangt text/plain bei CORS-Free Requests
+    },
+    body: payload
+  })
+  .then(() => {
+    status.style.color = "#30d158";
+    status.innerText = "✓ Erfolgreich an das Display gesendet!";
+    btn.disabled = false;
+    btn.innerText = "Senden";
+  })
+  .catch(err => {
+    status.style.color = "#ff453a";
+    status.innerText = "Übertragung fehlgeschlagen.";
+    btn.disabled = false;
+    btn.innerText = "Senden";
+  });
+});
